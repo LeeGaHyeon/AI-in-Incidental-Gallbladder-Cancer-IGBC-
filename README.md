@@ -89,5 +89,7 @@
 - **집계 전략**: 슬라이스 확률의 가중 평균(Weighted Soft Voting)  
 - **성능**  
 Validation Acc: 0.8140 | Validation AUC: 0.8304
+<img width="1014" height="318" alt="image" src="https://github.com/user-attachments/assets/07948e9f-5e59-4ac3-8297-60cc80a083d5" />
+<img width="403" height="329" alt="image" src="https://github.com/user-attachments/assets/850d6cef-d202-4672-b1bf-3611fc7deb72" />
 
  
