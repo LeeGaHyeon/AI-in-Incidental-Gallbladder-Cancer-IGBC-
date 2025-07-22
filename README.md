@@ -85,7 +85,6 @@
 - **지표(환자 단위)**: Accuracy, AUC 
 - **집계 전략**: 슬라이스 확률의 가중 평균(Weighted Soft Voting)  
 - **성능**  
-  - Accuracy: 81.40%  
-  - AUC: 0.9043 
+Validation Acc: 0.8140 | Validation AUC: 0.8304
 
  
