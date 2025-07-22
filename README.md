@@ -69,4 +69,26 @@
 - **기본 원칙: 환자 단위 분할(Patient-wise)**  
   - 한 환자의 모든 슬라이스는 **반드시 하나의 세트(train/val/test 중 하나)에만** 포함됩니다.  
   - 슬라이스 단위로 무작위 분할하면 데이터 누수(leakage)가 발생하므로 금지합니다.
+
+---
+
+## 5. 모델 학습(Training) 개요
+- **Backbone**: Inception-ResNet-v2 (ImageNet 사전학습 가중치)  
+- **출력층**: 2-class 분류용 FC 레이어로 교체  
+- **Loss / Optimizer / Scheduler**  
+  - Loss: Cross Entropy  
+  - Optimizer: Adam (예: lr=1e-5, weight_decay=1e-4)  
+  - LR Scheduler: ReduceLROnPlateau (val loss 개선 없을 때 lr 감소)  
+- **Early Stopping**: Validation loss 기준, patience 기반 중단  
+- **Reproducibility**: random/np/torch seed 고정, 환경 파일 제공
+
+---
+
+## 6. 평가(Validation & Test)
+- **지표(환자 단위)**: Accuracy, AUC 
+- **집계 전략**: 슬라이스 확률의 가중 평균(Weighted Soft Voting)  
+- **성능**  
+  - Accuracy: 81.40%  
+  - AUC: 0.9043 
+
  
