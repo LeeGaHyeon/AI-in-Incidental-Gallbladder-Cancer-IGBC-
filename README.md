@@ -42,18 +42,18 @@
 ## 4. 데이터 & 전처리 (Data & Preprocessing)
 
 ### 4.1 데이터 개요
-| 구분 | 환자 수 | 슬라이스 수(평균/범위) | 비고 |
-|-----|--------:|------------------------:|------|
-| GBC (담낭암) | 107명 | ~N_slices_mean (예: 120 ± 35) | 병리 확진 |
-| AC  (담낭염) | 107명 | ~N_slices_mean (예: 110 ± 30) | 임상/영상 진단 |
-| 총합 | 214명 | - | - | 
+| 구분 | 환자 수 | 
+|-----|--------:| 
+| GBC (담낭암) | 107명 |  
+| AC  (담낭염) | 107명 |  
+| 총합 | 214명 |  
 
 ### 4.2 라벨링 (Detection용)
 - 각 클래스별 107명 중 **30명씩** 수동 라벨링(담낭 Bounding Box) → YOLOv5 학습  
 - 라벨 포맷: YOLO (class x_center y_center width height) normalized coordinates
 
 ### 4.3 전처리 파이프라인
-1. **DICOM → PNG 변환** (필요 시) 
+1. **DICOM → PNG 변환**
 2. **리샘플링/정규화**:  
    - 해상도 통일 (예: 512×512)  
    - 픽셀값 정규화(0~1 또는 z-score)  
@@ -61,13 +61,12 @@
 4. **ROI Crop**: 박스 영역을 margin(예: 10~20 px) 포함하여 crop, 필요 시 패딩 → `data/crops/` 저장  
 5. **데이터 증강 (Classification)**:  
    - Random horizontal/vertical flip  
-   - Random rotation, shift/scale  
+   - Random rotation, scale  
    - Intensity jitter (brightness/contrast)  
-   - (필요 시) Gaussian noise, blur
 
 ### 4.4 데이터 분할 (Split) 
 - **기본 원칙: 환자 단위 분할(Patient-wise)**  
-  - 한 환자의 모든 슬라이스는 **반드시 하나의 세트(train/val/test 중 하나)에만** 포함됩니다.  
+  - 한 환자의 모든 슬라이스는 **반드시 하나의 세트(train/val 중 하나)에만** 포함됩니다.  
   - 슬라이스 단위로 무작위 분할하면 데이터 누수(leakage)가 발생하므로 금지합니다.
 
 ---
@@ -77,11 +76,9 @@
 - **출력층**: 2-class 분류용 FC 레이어로 교체  
 - **Loss / Optimizer / Scheduler**  
   - Loss: Cross Entropy  
-  - Optimizer: Adam (예: lr=1e-5, weight_decay=1e-4)  
+  - Optimizer: Adam
   - LR Scheduler: ReduceLROnPlateau (val loss 개선 없을 때 lr 감소)  
 - **Early Stopping**: Validation loss 기준, patience 기반 중단  
-- **Reproducibility**: random/np/torch seed 고정, 환경 파일 제공
-
 ---
 
 ## 6. 평가(Validation & Test)
