@@ -14,6 +14,9 @@
 
 **최종 목표:** CT 영상에서 **GBC** 와 **AC** 를 자동 구별
 
+<img width="1155" height="543" alt="image" src="https://github.com/user-attachments/assets/acf456e4-43b9-4339-b1ac-25e724c681ba" />
+
+
 ---
 
 ## 2. 임상·해부학적 배경
